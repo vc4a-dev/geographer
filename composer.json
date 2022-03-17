@@ -1,5 +1,5 @@
 {
-    "name": "menarasolutions/geographer",
+    "name": "vc4a-dev/geographer",
     "type": "library",
     "description": "A PHP library that knows how any country, state or city is called in any language",
     "keywords": ["geolocation","localization","geonames","geo"],
