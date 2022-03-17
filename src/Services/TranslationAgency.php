@@ -27,55 +27,55 @@ class TranslationAgency implements TranslationAgencyInterface
     /**
      * @var string
      */
-    protected $basePath;
+    protected string $basePath;
 
     /**
      * @var RepositoryInterface
      */
-    protected $repository;
+    protected RepositoryInterface $repository;
 
     /**
      * @var string
      */
-    protected $form = 'default';
+    protected string $form = 'default';
 
     /**
      * @var array
      */
-    protected $inflictsTo = [];
+    protected array $inflictsTo = [];
 
     /**
      * @var bool
      */
-    protected $prepositions = true;
+    protected bool $prepositions = true;
 
     /**
      * Constants for available languages
      */
-    const LANG_RUSSIAN = 'ru';
-    const LANG_ENGLISH = 'en';
-    const LANG_SPANISH = 'es';
-    const LANG_ITALIAN = 'it';
-    const LANG_FRENCH = 'fr';
-    const LANG_CHINESE = 'zh';
-    const LANG_UKRAINIAN = 'uk';
-    const LANG_GERMAN = 'de';
-    const LANG_DUTCH = 'nl';
-    const LANG_DANISH = 'da';
+    public const LANG_RUSSIAN = 'ru';
+    public const LANG_ENGLISH = 'en';
+    public const LANG_SPANISH = 'es';
+    public const LANG_ITALIAN = 'it';
+    public const LANG_FRENCH = 'fr';
+    public const LANG_CHINESE = 'zh';
+    public const LANG_UKRAINIAN = 'uk';
+    public const LANG_GERMAN = 'de';
+    public const LANG_DUTCH = 'nl';
+    public const LANG_DANISH = 'da';
 
     /**
      * Constants for available forms
      */
-    const FORM_DEFAULT = 'default';
-    const FORM_IN = 'in';
-    const FORM_FROM = 'from';
+    public const FORM_DEFAULT = 'default';
+    public const FORM_IN = 'in';
+    public const FORM_FROM = 'from';
 
     /**
      * List of available translators
      *
      * @var array
      */
-    protected $languages = [
+    protected array $languages = [
         self::LANG_RUSSIAN => Russian::class,
         self::LANG_ENGLISH => English::class,
         self::LANG_SPANISH => Spanish::class,
@@ -91,14 +91,15 @@ class TranslationAgency implements TranslationAgencyInterface
     /**
      * @var array PoliglottaInterface
      */
-    protected $translators = [];
+    protected array $translators = [];
 
     /**
      * TranslationRepository constructor.
-     * @param string $basePath
+     *
+     * @param string              $basePath
      * @param RepositoryInterface $repository
      */
-    public function __construct($basePath, RepositoryInterface $repository)
+    public function __construct( string $basePath, RepositoryInterface $repository)
     {
         $this->basePath = $basePath;
         $this->repository = $repository;
@@ -108,7 +109,7 @@ class TranslationAgency implements TranslationAgencyInterface
      * @param string $form
      * @return $this
      */
-    public function setForm($form)
+    public function setForm($form) : self
     {
         $this->form = $form;
 
@@ -118,7 +119,7 @@ class TranslationAgency implements TranslationAgencyInterface
     /**
      * @return $this
      */
-    public function includePrepositions()
+    public function includePrepositions() : self
     {
         $this->prepositions = true;
 
@@ -128,19 +129,22 @@ class TranslationAgency implements TranslationAgencyInterface
     /**
      * @return $this
      */
-    public function excludePrepositions()
+    public function excludePrepositions() : self
     {
         $this->prepositions = false;
 
         return $this;
     }
 
+
     /**
      * @param IdentifiableInterface $subject
-     * @param string $language
+     * @param string                $language
+     *
      * @return string
+     * @throws MisconfigurationException
      */
-    public function translate(IdentifiableInterface $subject, $language = 'en')
+    public function translate(IdentifiableInterface $subject, $language = 'en') : string
     {
         $translator = $this->getTranslator($language);
 
@@ -149,10 +153,11 @@ class TranslationAgency implements TranslationAgencyInterface
 
     /**
      * @param string $language
+     *
      * @return PoliglottaInterface
      * @throws MisconfigurationException
      */
-    public function getTranslator($language)
+    public function getTranslator( string $language) : PoliglottaInterface
     {
         if (! isset($this->languages[$language])) {
             throw new MisconfigurationException('No hablo ' . $language . ', sorry');
@@ -168,7 +173,7 @@ class TranslationAgency implements TranslationAgencyInterface
     /**
      * @return RepositoryInterface $repository
      */
-    public function getRepository()
+    public function getRepository() : RepositoryInterface
     {
         return $this->repository;
     }
@@ -178,7 +183,7 @@ class TranslationAgency implements TranslationAgencyInterface
      *
      * @return TranslationAgencyInterface
      */
-    public function setRepository( RepositoryInterface $repository)
+    public function setRepository( RepositoryInterface $repository ) : self
     {
         $this->repository = $repository;
 
@@ -188,7 +193,7 @@ class TranslationAgency implements TranslationAgencyInterface
     /**
      * @return array
      */
-    public function getSupportedLanguages()
+    public function getSupportedLanguages() : array
     {
         return array_keys($this->translators);
     }

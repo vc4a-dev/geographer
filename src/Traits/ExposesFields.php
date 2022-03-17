@@ -30,6 +30,8 @@ trait ExposesFields
         if (is_string($offset)) {
             return $this->__get($offset);
         }
+
+        return null;
     }
 
     /**

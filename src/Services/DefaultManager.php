@@ -16,55 +16,57 @@ class DefaultManager implements ManagerInterface
     /**
      * Supported subdivision standards
      */
-    const STANDARD_ISO = 'iso';
-    const STANDARD_FIPS = 'fips';
-    const STANDARD_GEONAMES = 'geonames';
+    public const STANDARD_ISO = 'iso';
+    public const STANDARD_FIPS = 'fips';
+    public const STANDARD_GEONAMES = 'geonames';
 
     /**
      * @var TranslationAgencyInterface $translator
      */
-    protected $translator;
+    protected TranslationAgencyInterface $translator;
 
     /**
      * @var RepositoryInterface $repository
      */
-    protected $repository;
+    protected RepositoryInterface $repository;
 
     /**
      * @var string
      */
-    protected $language = 'en';
+    protected string $language = 'en';
 
     /**
      * @var string
      */
-    protected $form;
+    protected string $form;
 
     /**
      * @var string
      */
-    protected $standard = self::STANDARD_ISO;
+    protected string $standard = self::STANDARD_ISO;
 
     /**
      * @var bool
      */
-    protected $brief = true;
+    protected bool $brief = true;
 
     /**
      * @var bool
      */
-    protected $prepositions = true;
+    protected bool $prepositions = true;
 
     /**
      * @var string
      */
-    protected $path;
+    protected string $path;
+
 
     /**
      * DefaultConfig constructor.
-     * @param string $path
-     * @param TranslationAgencyInterface $translator
-     * @param RepositoryInterface $repository
+     *
+     * @param null                            $path
+     * @param TranslationAgencyInterface|null $translator
+     * @param RepositoryInterface|null        $repository
      */
     public function __construct($path = null, TranslationAgencyInterface $translator = null, RepositoryInterface $repository= null)
     {
@@ -76,15 +78,15 @@ class DefaultManager implements ManagerInterface
     /**
      * @return string
      */
-    public static function getDefaultPrefix()
+    public static function getDefaultPrefix() : string
     {
-        return dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR;
+        return dirname( __FILE__, 3 ) . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR;
     }
 
     /**
      * @return string
      */
-    public function getStoragePath()
+    public function getStoragePath() : string
     {
         return $this->path;
     }
@@ -93,7 +95,7 @@ class DefaultManager implements ManagerInterface
      * @param string $path
      * @return $this
      */
-    public function setStoragePath($path)
+    public function setStoragePath($path) : self
     {
         $this->path = $path;
 
@@ -103,9 +105,11 @@ class DefaultManager implements ManagerInterface
     /**
      * @return TranslationAgencyInterface
      */
-    public function getTranslator()
+    public function getTranslator() : TranslationAgencyInterface
     {
-        $this->prepositions ? $this->translator->includePrepositions() : $this->translator->excludePrepositions();
+        $this->prepositions
+            ? $this->translator->includePrepositions()
+            : $this->translator->excludePrepositions();
 
         return $this->translator;
     }
@@ -114,7 +118,7 @@ class DefaultManager implements ManagerInterface
      * @param TranslationAgencyInterface $translator
      * @return $this
      */
-    public function setTranslator(TranslationAgencyInterface $translator)
+    public function setTranslator(TranslationAgencyInterface $translator) : self
     {
         $this->translator = $translator;
 
@@ -124,7 +128,7 @@ class DefaultManager implements ManagerInterface
     /**
      * @return RepositoryInterface
      */
-    public function getRepository()
+    public function getRepository() : RepositoryInterface
     {
         return $this->repository;
     }
@@ -133,7 +137,7 @@ class DefaultManager implements ManagerInterface
      * @param RepositoryInterface $repository
      * @return $this
      */
-    public function setRepository(RepositoryInterface $repository)
+    public function setRepository(RepositoryInterface $repository) : self
     {
         $this->repository = $repository;
         $this->translator->setRepository($repository);
@@ -142,10 +146,10 @@ class DefaultManager implements ManagerInterface
     }
 
     /**
-     * @param $locale
+     * @param string $locale
      * @return $this
      */
-    public function setLocale($locale)
+    public function setLocale( string $locale ) : self
     {
         $this->language = strtolower(substr($locale, 0, 2));
 
@@ -156,7 +160,7 @@ class DefaultManager implements ManagerInterface
      * @param string $form
      * @return $this
      */
-    public function setForm($form)
+    public function setForm( string $form ) : self
     {
         $this->translator->setForm($form);
 
@@ -166,7 +170,7 @@ class DefaultManager implements ManagerInterface
     /**
      * @return string
      */
-    public function getLocale()
+    public function getLocale() : string
     {
         return $this->language;
     }
@@ -174,7 +178,7 @@ class DefaultManager implements ManagerInterface
     /**
      * @return $this
      */
-    public function useLongNames()
+    public function useLongNames() : self
     {
         $this->brief = false;
 
@@ -184,7 +188,7 @@ class DefaultManager implements ManagerInterface
     /**
      * @return $this
      */
-    public function useShortNames()
+    public function useShortNames() : self
     {
         $this->brief = true;
 
@@ -194,7 +198,7 @@ class DefaultManager implements ManagerInterface
     /**
      * @return $this
      */
-    public function includePrepositions()
+    public function includePrepositions() : self
     {
         $this->prepositions = true;
 
@@ -204,7 +208,7 @@ class DefaultManager implements ManagerInterface
     /**
      * @return $this
      */
-    public function excludePrepositions()
+    public function excludePrepositions() : self
     {
         $this->prepositions = false;
 
@@ -214,7 +218,7 @@ class DefaultManager implements ManagerInterface
     /**
      * @return bool
      */
-    public function expectsLongNames()
+    public function expectsLongNames() : bool
     {
         return ! $this->brief;
     }
@@ -222,7 +226,7 @@ class DefaultManager implements ManagerInterface
     /**
      * @return string
      */
-    public function getStandard()
+    public function getStandard() : string
     {
         return $this->standard;
     }
@@ -231,7 +235,7 @@ class DefaultManager implements ManagerInterface
      * @param string $standard
      * @return $this
      */
-    public function setStandard($standard)
+    public function setStandard( string $standard ) : self
     {
         $this->standard = $standard;
 

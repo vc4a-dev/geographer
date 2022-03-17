@@ -13,7 +13,7 @@ trait HasManager
     /**
      * @return ManagerInterface
      */
-    public function getManager()
+    public function getManager() : ManagerInterface
     {
         return $this->manager;
     }
@@ -22,7 +22,7 @@ trait HasManager
      * @param ManagerInterface $manager
      * @return $this
      */
-    public function setManager(ManagerInterface $manager)
+    public function setManager(ManagerInterface $manager) : self
     {
         $this->manager = $manager;
 
@@ -31,9 +31,10 @@ trait HasManager
 
     /**
      * @param string $locale
+     *
      * @return $this
      */
-    public function setLocale($locale)
+    public function setLocale( string $locale) : self
     {
         $this->manager->setLocale($locale);
 
@@ -42,9 +43,10 @@ trait HasManager
 
     /**
      * @param string $standard
+     *
      * @return $this
      */
-    public function setStandard($standard)
+    public function setStandard( string $standard) : self
     {
         $this->manager->setStandard($standard);
         $this->members = null;
@@ -56,7 +58,7 @@ trait HasManager
      * @param string $form
      * @return $this
      */
-    public function inflict($form)
+    public function inflict( string $form ) : self
     {
         $this->manager->setForm($form);
 
@@ -66,7 +68,7 @@ trait HasManager
     /**
      * @return $this
      */
-    public function useLongNames()
+    public function useLongNames() : self
     {
         $this->manager->useLongNames();
 
@@ -76,7 +78,7 @@ trait HasManager
     /**
      * @return $this
      */
-    public function useShortNames()
+    public function useShortNames() : self
     {
         $this->manager->useShortNames();
 
@@ -86,7 +88,7 @@ trait HasManager
     /**
      * @return $this
      */
-    public function excludePrepositions()
+    public function excludePrepositions() : self
     {
         $this->manager->excludePrepositions();
 
@@ -96,7 +98,7 @@ trait HasManager
     /**
      * @return $this
      */
-    public function includePrepositions()
+    public function includePrepositions() : self
     {
         $this->manager->includePrepositions();
 

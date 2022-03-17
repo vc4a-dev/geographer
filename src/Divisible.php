@@ -21,10 +21,10 @@ abstract class Divisible implements IdentifiableInterface, \ArrayAccess
     /**
      * @var array $meta
      */
-    protected $meta;
+    protected array $meta;
     
     /**
-     * @var MemberCollection $members
+     * @var ?MemberCollection $members
      */
     protected $members = null;
 
@@ -41,7 +41,7 @@ abstract class Divisible implements IdentifiableInterface, \ArrayAccess
     /**
      * @var ManagerInterface
      */
-    protected $manager;
+    protected ManagerInterface $manager;
 
     /**
      * @var Divisible
@@ -76,21 +76,26 @@ abstract class Divisible implements IdentifiableInterface, \ArrayAccess
         $this->manager = $manager ?: new DefaultManager();
     }
 
+
     /**
-     * @return MemberCollection
+     * @return MemberCollection|null
      */
-    public function getMembers()
+    public function getMembers() : ?MemberCollection
     {
-        if (! $this->members) $this->loadMembers();
+        if (! $this->members) {
+            $this->loadMembers();
+        }
 
         return $this->members;
     }
-    
+
+
     /**
-     * @param MemberCollection $collection
+     * @param MemberCollection|null $collection
+     *
      * @return void
      */
-    protected function loadMembers(MemberCollection $collection = null)
+    protected function loadMembers(MemberCollection $collection = null) : void
     {
         $standard = $this->standard ?: $this->manager->getStandard();
 
@@ -103,7 +108,9 @@ abstract class Divisible implements IdentifiableInterface, \ArrayAccess
         foreach($data as $meta) {
             $entity = new $this->memberClass($meta, $this->getCode(), $this->manager);
 
-            if (! empty($entity[$standard . 'Code'])) $collection->add($entity, $entity[$standard . 'Code']);
+            if (! empty($entity[$standard . 'Code'])) {
+                $collection->add($entity, $entity[$standard . 'Code']);
+            }
         }
 
         $this->members = $collection;
@@ -112,12 +119,15 @@ abstract class Divisible implements IdentifiableInterface, \ArrayAccess
     /**
      * Best effort name
      *
-     * @param string $locale
+     * @param string|null $locale
+     *
      * @return string
      */
-    public function getName($locale = null)
+    public function getName( string $locale = null) : string
     {
-        if ($locale) $this->setLocale($locale);
+        if ($locale) {
+            $this->setLocale( $locale );
+        }
 
         return $this->manager->expectsLongNames() ? $this->getLongName() : $this->getShortName();
     }
@@ -126,7 +136,7 @@ abstract class Divisible implements IdentifiableInterface, \ArrayAccess
     /**
      * @return string
      */
-    public function getShortName()
+    public function getShortName() : string
     {
         $this->manager->useShortNames();
 
@@ -136,7 +146,7 @@ abstract class Divisible implements IdentifiableInterface, \ArrayAccess
     /**
      * @return string
      */
-    public function getLongName()
+    public function getLongName() : string
     {
         $this->manager->useLongNames();
 
@@ -146,7 +156,7 @@ abstract class Divisible implements IdentifiableInterface, \ArrayAccess
     /**
      * @return bool
      */
-    public function expectsLongNames()
+    public function expectsLongNames() : bool
     {
         return $this->manager->expectsLongNames();
     }
@@ -154,7 +164,7 @@ abstract class Divisible implements IdentifiableInterface, \ArrayAccess
     /**
      * @return Divisible
      */
-    public function parent()
+    public function parent() : Divisible
     {
         if (! $this->parent) {
             $this->parent = call_user_func([static::$parentClass, 'build'], $this->parentCode, $this->manager);
@@ -166,7 +176,7 @@ abstract class Divisible implements IdentifiableInterface, \ArrayAccess
     /**
      * @return array
      */
-    public function getMeta()
+    public function getMeta() : array
     {
         return $this->meta;
     }
@@ -174,34 +184,38 @@ abstract class Divisible implements IdentifiableInterface, \ArrayAccess
     /**
      * @return string|int
      */
-    public function getParentCode()
+    public function getParentCode() : int|string
     {
         return $this->meta['parent'];
     }
 
     /**
-     * @param string $locale
+     * @param string|null $locale
+     *
      * @return string
      */
-    public function translate($locale = null)
+    public function translate( string $locale = null) : string
     {
-        if ($locale) $this->manager->setLocale($locale);
+        if ($locale) {
+            $this->manager->setLocale($locale);
+        }
 
         return $this->manager->getTranslator()
             ->translate($this, $this->manager->getLocale());
     }
     
     /**
-     * @param int|string $id
-     * @param ManagerInterface $config
-     * @return City|Country|State
+     * @param int|string            $id
+     * @param ManagerInterface|null $config
+     *
+     * @return Divisible City|Country|State
      */
-    public static function build($id, $config = null)
+    public static function build( int|string $id, ManagerInterface $config = null) : Divisible
     {
         $config = $config ?: new DefaultManager();
         $meta = $config->getRepository()
             ->indexSearch($id, static::$parentClass);
-        $parent = isset($meta['parent']) ? $meta['parent'] : null;
+        $parent = $meta['parent'] ?? null;
 
         return new static($meta, $parent, $config);
     }
@@ -209,10 +223,10 @@ abstract class Divisible implements IdentifiableInterface, \ArrayAccess
     /**
      * @return array
      */
-    public function getCodes()
+    public function getCodes() : array
     {
         $codes = [];
-        array_walk_recursive($this->meta['ids'], function($id) use (&$codes) { $codes[] = $id; });
+        array_walk_recursive($this->meta['ids'], static function( $id) use (&$codes) { $codes[] = $id; });
 
         return $codes;
     }

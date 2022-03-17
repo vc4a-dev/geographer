@@ -36,10 +36,11 @@ class State extends Divisible
         'timezone'
     ];
 
+
     /**
-     * @return Collections\MemberCollection
+     * @return Collections\MemberCollection|null
      */
-    public function getCities()
+    public function getCities() : ?Collections\MemberCollection
     {
         return $this->getMembers();
     }

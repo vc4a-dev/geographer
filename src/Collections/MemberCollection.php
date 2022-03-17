@@ -19,19 +19,19 @@ class MemberCollection extends \ArrayObject
     /**
      * @var array $divisions
      */
-    private $divisions = [];
+    private array $divisions = [];
 
     /**
      * @var ManagerInterface
      */
-    protected $manager;
+    protected ManagerInterface $manager;
 
     /**
      * MemberCollection constructor.
      * @param ManagerInterface $config
      * @param array $divisions
      */
-    public function __construct(ManagerInterface $config, $divisions = [])
+    public function __construct(ManagerInterface $config, array $divisions = [])
     {
         parent::__construct();
 

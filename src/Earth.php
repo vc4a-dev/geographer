@@ -3,6 +3,7 @@
 namespace MenaraSolutions\Geographer;
 
 use MenaraSolutions\Geographer\Collections\MemberCollection;
+use MenaraSolutions\Geographer\Contracts\ManagerInterface;
 use MenaraSolutions\Geographer\Services\DefaultManager;
 
 class Earth extends Divisible
@@ -138,7 +139,7 @@ class Earth extends Divisible
     /**
      * @inheritdoc
      */
-    public static function build($id, $config = null)
+    public static function build( int|string $id, ManagerInterface $config = null)
     {
         $config = $config ?: new DefaultManager();
         return new static([], null, $config);

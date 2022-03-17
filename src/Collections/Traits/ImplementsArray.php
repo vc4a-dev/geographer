@@ -73,6 +73,6 @@ trait ImplementsArray
      */
     public function unserialize($serialized): void
     {
-        $this->divisions = unserialize($serialized);
+        $this->divisions = (array) unserialize($serialized);
     }
 }
