@@ -86,7 +86,7 @@ interface ManagerInterface
      * @param string $standard
      * @return $this
      */
-    public function setStandard(string $standard) : static;
+    public function setStandard(string $standard) : self;
 
     /**
      * @return string
