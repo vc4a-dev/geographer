@@ -13,19 +13,19 @@ interface RepositoryInterface
      * @param array $params
      * @return array
      */
-    public function getData($class, array $params);
+    public function getData($class, array $params) : array;
 
     /**
      * @param IdentifiableInterface $subject
      * @param $language
      * @return array
      */
-    public function getTranslations(IdentifiableInterface $subject, $language);
+    public function getTranslations(IdentifiableInterface $subject, $language) : array;
 
     /**
      * @param $id
      * @param $class
      * @return mixed
      */
-    public function indexSearch($id, $class);
+    public function indexSearch($id, $class) : mixed;
 }

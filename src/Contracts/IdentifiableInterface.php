@@ -11,17 +11,17 @@ interface IdentifiableInterface
     /**
      * @return bool
      */
-    public function expectsLongNames();
+    public function expectsLongNames() : bool;
 
     /**
      * @return array
      */
-    public function getMeta();
+    public function getMeta() : array;
 
     /**
      * Get an array of unique identification codes for this object
      *
      * @return array
      */
-    public function getCodes();
+    public function getCodes() : array;
 }

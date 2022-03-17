@@ -11,18 +11,18 @@ interface ManagerInterface
     /**
      * @return string
      */
-    public function getStoragePath();
+    public function getStoragePath() : string;
 
     /**
      * @param string $path
      * @return ManagerInterface
      */
-    public function setStoragePath($path);
+    public function setStoragePath(string $path) : ManagerInterface;
     
     /**
      * @return TranslationAgencyInterface
      */
-    public function getTranslator();
+    public function getTranslator() : TranslationAgencyInterface;
 
     /**
      * @param TranslationAgencyInterface $translator
@@ -33,63 +33,63 @@ interface ManagerInterface
     /**
      * @return RepositoryInterface
      */
-    public function getRepository();
+    public function getRepository() : RepositoryInterface;
 
     /**
      * @param RepositoryInterface $repository
      * @return ManagerInterface
      */
-    public function setRepository(RepositoryInterface $repository);
+    public function setRepository(RepositoryInterface $repository) : ManagerInterface;
 
     /**
      * @param string $form
      */
-    public function setForm($form);
+    public function setForm(string $form);
 
     /**
      * @return string
      */
-    public function getLocale();
+    public function getLocale() : string;
 
     /**
      * @param string $language
      * @return ManagerInterface
      */
-    public function setLocale($language);
+    public function setLocale(string $language) : ManagerInterface;
 
     /**
      * @return ManagerInterface
      */
-    public function useShortNames();
+    public function useShortNames() : ManagerInterface;
 
     /**
      * @return ManagerInterface
      */
-    public function useLongNames();
+    public function useLongNames() : ManagerInterface;
 
     /**
      * @return ManagerInterface
      */
-    public function includePrepositions();
+    public function includePrepositions() : ManagerInterface;
 
     /**
      * @return ManagerInterface
      */
-    public function excludePrepositions();
+    public function excludePrepositions() : ManagerInterface;
 
     /**
      * @return bool
      */
-    public function expectsLongNames();
+    public function expectsLongNames() : bool;
 
     /**
      * @param string $standard
      * @return $this
      */
-    public function setStandard($standard);
+    public function setStandard(string $standard) : static;
 
     /**
      * @return string
      */
-    public function getStandard();
+    public function getStandard() : string;
 }

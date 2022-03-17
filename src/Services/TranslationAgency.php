@@ -175,9 +175,10 @@ class TranslationAgency implements TranslationAgencyInterface
 
     /**
      * @param RepositoryInterface $repository
+     *
      * @return TranslationAgencyInterface
      */
-    public function setRepository($repository)
+    public function setRepository( RepositoryInterface $repository)
     {
         $this->repository = $repository;
 

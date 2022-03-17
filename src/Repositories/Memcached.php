@@ -125,9 +125,10 @@ class Memcached extends File implements RepositoryInterface
 
     /**
      * @param string $path
+     *
      * @throws FileNotFoundException
      */
-    protected function loadTranslations($path)
+    protected function loadTranslations( string $path)
     {
         $meta = $this->loadJson($path);
 

@@ -49,12 +49,13 @@ abstract class Base implements PoliglottaInterface
 
     /**
      * @param IdentifiableInterface $subject
-     * @param string $form
-     * @param bool $preposition
+     * @param string                $form
+     * @param bool                  $preposition
+     *
      * @return string
      * @throws MisconfigurationException
      */
-    public function translate(IdentifiableInterface $subject, $form = 'default', $preposition = true)
+    public function translate( IdentifiableInterface $subject, string $form, bool $preposition)
     {   
         if (! method_exists($this, 'inflict' . ucfirst($form))) {
             throw new MisconfigurationException('Language ' . $this->code . ' doesn\'t inflict to ' . $form);

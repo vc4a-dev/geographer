@@ -13,37 +13,38 @@ interface TranslationAgencyInterface
      * @param string $language
      * @return string
      */
-    public function translate(IdentifiableInterface $subject, $language);
+    public function translate(IdentifiableInterface $subject, string $language) : string;
 
     /**
      * @return RepositoryInterface $repository
      */
-    public function getRepository();
+    public function getRepository() : RepositoryInterface;
 
     /**
      * @param RepositoryInterface $repository
+     *
      * @return TranslationAgencyInterface
      */
-    public function setRepository($repository);
+    public function setRepository(RepositoryInterface $repository) : TranslationAgencyInterface;
 
     /**
      * @return array
      */
-    public function getSupportedLanguages();
+    public function getSupportedLanguages() : array;
 
     /**
      * @param $form
      * @return TranslationAgencyInterface
      */
-    public function setForm($form);
+    public function setForm($form) : TranslationAgencyInterface;
 
     /**
      * @return TranslationAgencyInterface
      */
-    public function includePrepositions();
+    public function includePrepositions() : TranslationAgencyInterface;
 
     /**
      * @return TranslationAgencyInterface
      */
-    public function excludePrepositions();
+    public function excludePrepositions() : TranslationAgencyInterface;
 }
