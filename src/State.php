@@ -11,22 +11,22 @@ class State extends Divisible
     /**
      * @var string
      */
-    protected $memberClass = City::class;
+    protected string $memberClass = City::class;
 
     /**
      * @var string
      */
-    protected static $parentClass = Country::class;
+    protected static string|int|null $parentClass = Country::class;
 
     /**
      * @var string
      */
-    protected $standard = 'geonames';
+    protected string $standard = 'geonames';
 
     /**
      * @var array
      */
-    protected $exposed = [
+    protected array $exposed = [
         'code' => 'ids.geonames',
         'fipsCode' => 'ids.fips',
         'isoCode' => 'ids.iso_3166_2',

@@ -11,17 +11,17 @@ class City extends Divisible
     /**
      * @var string
      */
-    protected $memberClass = null;
+    protected string $memberClass = null;
 
     /**
      * @var string
      */
-    protected static $parentClass = State::class;
+    protected static string|int|null $parentClass = State::class;
 
     /**
      * @var array
      */
-    protected $exposed = [
+    protected array $exposed = [
         'code' => 'ids.geonames',
         'geonamesCode' => 'ids.geonames',
         'name',

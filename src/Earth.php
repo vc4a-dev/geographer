@@ -11,17 +11,17 @@ class Earth extends Divisible
     /**
      * @var string
      */
-    protected $memberClass = Country::class;
+    protected string $memberClass = Country::class;
 
     /**
-     * @var null
+     * @var int|string|null
      */
-    protected static $parentClass = null;
+    protected static string|int|null $parentClass = null;
 
     /**
      * @var array
      */
-    protected $exposed = [
+    protected array $exposed = [
         'code',
         'name'
     ];
@@ -29,7 +29,7 @@ class Earth extends Divisible
     /**
      * @return MemberCollection
      */
-    public function getCountries()
+    public function getCountries() : MemberCollection
     {
         return $this->getMembers();
     }
@@ -37,7 +37,7 @@ class Earth extends Divisible
     /**
      * @return string
      */
-    public function getShortName()
+    public function getShortName() : string
     {
         return 'Earth';
     }
@@ -45,7 +45,7 @@ class Earth extends Divisible
     /**
      * @return string
      */
-    public function getLongName()
+    public function getLongName() : string
     {
         return 'The Blue Marble';
     }
@@ -53,15 +53,16 @@ class Earth extends Divisible
     /**
      * @return string
      */
-    public function getCode()
+    public function getCode() : string
     {
         return 'SOL-III';
     }
 
+
     /**
-     * @return null
+     * @return int|string|null
      */
-    public function getParentCode()
+    public function getParentCode() : int|string|null
     {
         return null;
     }
@@ -69,7 +70,7 @@ class Earth extends Divisible
     /**
      * @return MemberCollection
      */
-    public function getAfrica()
+    public function getAfrica() : MemberCollection
     {
         return $this->find([
             'continent' => 'AF'
@@ -79,7 +80,7 @@ class Earth extends Divisible
     /**
      * @return MemberCollection
      */
-    public function getNorthAmerica()
+    public function getNorthAmerica() : MemberCollection
     {
         return $this->find([
             'continent' => 'NA'
@@ -89,7 +90,7 @@ class Earth extends Divisible
     /**
      * @return MemberCollection
      */
-    public function getSouthAmerica()
+    public function getSouthAmerica() : MemberCollection
     {
         return $this->find([
             'continent' => 'SA'
@@ -99,7 +100,7 @@ class Earth extends Divisible
     /**
      * @return MemberCollection
      */
-    public function getAsia()
+    public function getAsia() : MemberCollection
     {
         return $this->find([
             'continent' => 'AS'
@@ -109,7 +110,7 @@ class Earth extends Divisible
     /**
      * @return MemberCollection
      */
-    public function getEurope()
+    public function getEurope() : MemberCollection
     {
         return $this->find([
             'continent' => 'EU'
@@ -119,7 +120,7 @@ class Earth extends Divisible
     /**
      * @return MemberCollection
      */
-    public function getOceania()
+    public function getOceania() : MemberCollection
     {
         return $this->find([
             'continent' => 'OC'
@@ -127,7 +128,7 @@ class Earth extends Divisible
     }
 
     /**
-     * @return static
+     * @return MemberCollection
      */
     public function withoutMicro()
     {
@@ -139,7 +140,7 @@ class Earth extends Divisible
     /**
      * @inheritdoc
      */
-    public static function build( int|string $id, ManagerInterface $config = null)
+    public static function build( int|string $id, ManagerInterface $config = null) : self
     {
         $config = $config ?: new DefaultManager();
         return new static([], null, $config);

@@ -31,12 +31,12 @@ abstract class Divisible implements IdentifiableInterface, \ArrayAccess
     /**
      * @var string $memberClass
      */
-    protected $memberClass;
+    protected string $memberClass;
 
     /**
-     * @var string $parentClass
+     * @var int|string|null $parentClass
      */
-    protected static $parentClass;
+    protected static string|int|null $parentClass;
 
     /**
      * @var ManagerInterface
@@ -46,30 +46,31 @@ abstract class Divisible implements IdentifiableInterface, \ArrayAccess
     /**
      * @var Divisible
      */
-    private $parent;
+    private Divisible $parent;
+
+    /**
+     * @var null|string
+     */
+    protected ?string $parentCode;
 
     /**
      * @var string
      */
-    protected $parentCode;
-
-    /**
-     * @var string
-     */
-    protected $standard;
+    protected string $standard;
 
     /**
      * @var array
      */
-    protected $exposed = [];
+    protected array $exposed = [];
 
     /**
      * Country constructor.
-     * @param array $meta
-     * @param string $parentCode
+     *
+     * @param array            $meta
+     * @param string|null      $parentCode
      * @param ManagerInterface $manager
      */
-    public function __construct(array $meta = [], $parentCode = null, ManagerInterface $manager = null)
+    public function __construct( array $meta = [], string $parentCode = null, ManagerInterface $manager = null)
     {
         $this->meta = $meta;
         $this->parentCode = $parentCode;
@@ -182,9 +183,9 @@ abstract class Divisible implements IdentifiableInterface, \ArrayAccess
     }
 
     /**
-     * @return string|int
+     * @return null|string|int
      */
-    public function getParentCode() : int|string
+    public function getParentCode() : int|string|null
     {
         return $this->meta['parent'];
     }
