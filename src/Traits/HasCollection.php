@@ -12,7 +12,7 @@ trait HasCollection
      * @param array $params
      * @return mixed
      */
-    public function find(array $params = [])
+    public function find(array $params = []): mixed
     {
         return $this->getMembers()->find($params);
     }
@@ -21,7 +21,7 @@ trait HasCollection
      * @param array $params
      * @return mixed
      */
-    public function findOne(array $params = [])
+    public function findOne(array $params = []): mixed
     {
         return $this->getMembers()->findOne($params);
     }
