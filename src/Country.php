@@ -83,8 +83,7 @@ class Country extends Divisible
     public static function build( int|string $id, ManagerInterface $config = null) : Divisible
     {
         $config = $config ?: new DefaultManager();
-        $earth = (new Earth())->setManager($config);
 
-        return $earth->findOneByCode($id);
+        return (new Earth())->setManager($config)->findOneByCode($id);
     }
 }

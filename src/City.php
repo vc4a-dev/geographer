@@ -11,10 +11,10 @@ class City extends Divisible
     /**
      * @var string
      */
-    protected string $memberClass = null;
+    protected string $memberClass;
 
     /**
-     * @var string
+     * @var string|int|null
      */
     protected static string|int|null $parentClass = State::class;
 

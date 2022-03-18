@@ -22,11 +22,11 @@ abstract class Divisible implements IdentifiableInterface, \ArrayAccess
      * @var array $meta
      */
     protected array $meta;
-    
+
     /**
-     * @var ?MemberCollection $members
+     * @var null|MemberCollection $members
      */
-    protected $members = null;
+    protected null|MemberCollection $members;
 
     /**
      * @var string $memberClass
@@ -63,12 +63,13 @@ abstract class Divisible implements IdentifiableInterface, \ArrayAccess
      */
     protected array $exposed = [];
 
+
     /**
      * Country constructor.
      *
-     * @param array            $meta
-     * @param string|null      $parentCode
-     * @param ManagerInterface $manager
+     * @param array                 $meta
+     * @param string|null           $parentCode
+     * @param ManagerInterface|null $manager
      */
     public function __construct( array $meta = [], string $parentCode = null, ManagerInterface $manager = null)
     {
@@ -83,7 +84,7 @@ abstract class Divisible implements IdentifiableInterface, \ArrayAccess
      */
     public function getMembers() : ?MemberCollection
     {
-        if (! $this->members) {
+        if (! isset( $this->members ) ) {
             $this->loadMembers();
         }
 
@@ -98,7 +99,7 @@ abstract class Divisible implements IdentifiableInterface, \ArrayAccess
      */
     protected function loadMembers(MemberCollection $collection = null) : void
     {
-        $standard = $this->standard ?: $this->manager->getStandard();
+        $standard = $this->standard ?? $this->manager->getStandard();
 
         $data = $this->manager->getRepository()->getData(get_class($this), [
             'code' => $this->getCode(), 'parentCode' => $this->getParentCode()
@@ -204,7 +205,7 @@ abstract class Divisible implements IdentifiableInterface, \ArrayAccess
         return $this->manager->getTranslator()
             ->translate($this, $this->manager->getLocale());
     }
-    
+
     /**
      * @param int|string            $id
      * @param ManagerInterface|null $config
